@@ -5,22 +5,22 @@ final class MovieQuizViewController: UIViewController {
     @IBOutlet private var counterLabel: UILabel!
     @IBOutlet private var imageView: UIImageView!
     @IBOutlet private var textLabel: UILabel!
-    @IBOutlet weak var noButtonClicked: UIButton!
-    @IBOutlet weak var yesButtonClicked: UIButton!
+    @IBOutlet private var noButtonClicked: UIButton!
+    @IBOutlet private var yesButtonClicked: UIButton!
     
-    struct QuizResultsViewModel {
+    private struct QuizResultsViewModel {
         let title: String
         let text: String
         let buttonText: String
     }
     
-    struct QuizStepViewModel {
+   private struct QuizStepViewModel {
         let image: UIImage
         let question: String
         let questionNumber: String
     }
     
-    struct QuizQuestions {
+    private struct QuizQuestions {
         let image: String
         let text: String
         let correctAnswer: Bool
