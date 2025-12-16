@@ -5,7 +5,7 @@
 //  Created by Vasily on 12.12.2025.
 //
 
-class QuestionFactory {
+class QuestionFactory: QuestionFactoryProtocol  {
     
     private let questions: [QuizQuestion] = [
         QuizQuestion(
