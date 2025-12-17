@@ -13,7 +13,8 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
     private let questionsAmount: Int = 10
     private var questionFactory: QuestionFactoryProtocol?
     private var currentQuestion: QuizQuestion?
-    
+    private var alertPresenter = AlertPresenter()
+
     private func convert(model: QuizQuestion) -> QuizStepViewModel {
         let questionStep = QuizStepViewModel(
             image: UIImage(named: model.image) ?? UIImage(),
@@ -98,15 +99,16 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
         showAnswerResult(isCorrect: givenAnswer == currentQuestion.correctAnswer)
     }
     
-    private func show(quiz result: QuizResultsViewModel) {
-        let alert = UIAlertController(title: result.title, message: result.text, preferredStyle: .alert)
-        let action = UIAlertAction(title: result.buttonText, style: .default){ [weak self] _ in
+    func show(quiz result: QuizResultsViewModel) {
+        let message = result.text
+        let model = AlertModel(title: result.title, message: message, buttonText: result.buttonText) { [weak self] in
             guard let self = self else { return }
-            self.currentQuestionIndex = 0
+
             self.correctAnswers = 0
-            questionFactory?.requestNextQuestion( )
+            self.currentQuestionIndex = 0
+            self.questionFactory?.requestNextQuestion()
         }
-        alert.addAction(action)
-        self.present(alert, animated: true, completion: nil)
+        
+        alertPresenter.show(in: self, model: model)
     }
 }
