@@ -11,8 +11,6 @@ import UIKit
 final class StatisticService: StatisticServiceProtocol {
     private let storage: UserDefaults = .standard
     
-    
-    
     var gamesCount: Int {
         get {
             storage.integer(forKey: "gamesCount")
@@ -31,7 +29,7 @@ final class StatisticService: StatisticServiceProtocol {
             } else {
                 let date = Date()
             }
-          return GameResult(correct: 0, total: 0, date: Date())
+            return GameResult(correct: 0, total: 0, date: Date())
         }
         set {
             storage.set(newValue.correct, forKey: "correct")
@@ -40,26 +38,29 @@ final class StatisticService: StatisticServiceProtocol {
         }
     }
     
-    private var totalCorrectAnswers: Int {
-        get{
-            storage.integer(forKey: "totalCorrectAnswers")
+    var totalAccuracy : Double{
+        var totalCorrectAnswers: Int {
+            get{
+                storage.integer(forKey: "totalCorrectAnswers")
+            }
+            set{
+                storage.set(newValue, forKey: "totalCorrectAnswers")
+            }
         }
-        set{
-            storage.set(newValue, forKey: "totalCorrectAnswers")
+        
+        var totalQuestionsAsked: Int{
+            get{
+                storage.integer(forKey: "totalQuestionsAsked")
+            }
+            set{
+                storage.set(newValue, forKey: "totalQuestionsAsked")
+            }
         }
-    }
-   
-    private var totalQuestionsAsked: Int{
-        get{
-            storage.integer(forKey: "totalQuestionsAsked")
+        if totalQuestionsAsked == 0{
+            return 0
+        } else{
+            return Double(totalCorrectAnswers) / Double(totalQuestionsAsked) * 100
         }
-        set{
-            storage.set(newValue, forKey: "totalQuestionsAsked")
-        }
-    }
-    
-    var totalAccuracy: Double{
-       
     }
     
     func store(correct count: Int, total amount: Int) {
