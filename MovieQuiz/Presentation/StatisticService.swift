@@ -38,24 +38,27 @@ final class StatisticService: StatisticServiceProtocol {
         }
     }
     
+    var totalCorrectAnswers: Int {
+        get{
+            storage.integer(forKey: "totalCorrectAnswers")
+        }
+        set{
+            storage.set(newValue, forKey: "totalCorrectAnswers")
+        }
+    }
+    
+    var totalQuestionsAsked: Int{
+        get{
+            storage.integer(forKey: "totalQuestionsAsked")
+        }
+        set{
+            storage.set(newValue, forKey: "totalQuestionsAsked")
+        }
+    }
+    
     var totalAccuracy : Double{
-        var totalCorrectAnswers: Int {
-            get{
-                storage.integer(forKey: "totalCorrectAnswers")
-            }
-            set{
-                storage.set(newValue, forKey: "totalCorrectAnswers")
-            }
-        }
+       
         
-        var totalQuestionsAsked: Int{
-            get{
-                storage.integer(forKey: "totalQuestionsAsked")
-            }
-            set{
-                storage.set(newValue, forKey: "totalQuestionsAsked")
-            }
-        }
         if totalQuestionsAsked == 0{
             return 0
         } else{
