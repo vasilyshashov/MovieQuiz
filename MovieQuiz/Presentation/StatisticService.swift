@@ -1,0 +1,68 @@
+//
+//  StatisticService.swift
+//  MovieQuiz
+//
+//  Created by Vasily on 18.12.2025.
+//
+
+// Расширяем при объявлении
+import UIKit
+
+final class StatisticService: StatisticServiceProtocol {
+    private let storage: UserDefaults = .standard
+    
+    
+    
+    var gamesCount: Int {
+        get {
+            storage.integer(forKey: "gamesCount")
+        }
+        set {
+            storage.set(newValue, forKey: "gamesCount")
+        }
+    }
+    
+    var bestGame: GameResult{
+        get {
+            storage.integer(forKey: "correct")
+            storage.integer(forKey: "total")
+            if let dataObject = storage.object(forKey: "data") as? Data {
+                let date = dataObject
+            } else {
+                let date = Date()
+            }
+          return GameResult(correct: 0, total: 0, date: Date())
+        }
+        set {
+            storage.set(newValue.correct, forKey: "correct")
+            storage.set(newValue.total, forKey: "total")
+            storage.set(newValue.date, forKey: "date")
+        }
+    }
+    
+    private var totalCorrectAnswers: Int {
+        get{
+            storage.integer(forKey: "totalCorrectAnswers")
+        }
+        set{
+            storage.set(newValue, forKey: "totalCorrectAnswers")
+        }
+    }
+   
+    private var totalQuestionsAsked: Int{
+        get{
+            storage.integer(forKey: "totalQuestionsAsked")
+        }
+        set{
+            storage.set(newValue, forKey: "totalQuestionsAsked")
+        }
+    }
+    
+    var totalAccuracy: Double{
+       
+    }
+    
+    func store(correct count: Int, total amount: Int) {
+        
+    }
+}

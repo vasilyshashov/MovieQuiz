@@ -14,7 +14,8 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
     private var questionFactory: QuestionFactoryProtocol?
     private var currentQuestion: QuizQuestion?
     private var alertPresenter = AlertPresenter()
-
+    private var statisticService: StatisticServiceProtocol?
+    
     private func convert(model: QuizQuestion) -> QuizStepViewModel {
         let questionStep = QuizStepViewModel(
             image: UIImage(named: model.image) ?? UIImage(),
