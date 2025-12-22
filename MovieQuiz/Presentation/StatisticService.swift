@@ -24,12 +24,10 @@ final class StatisticService: StatisticServiceProtocol {
         get {
             storage.integer(forKey: "correct")
             storage.integer(forKey: "total")
-            if let dataObject = storage.object(forKey: "data") as? Data {
-                let date = dataObject
-            } else {
-                let date = Date()
+            storage.object(forKey: "date") as! Date ?? Date()
+            if correctAnswers > correct {
+               return GameResult(correct: correctAnswers, total: totalQuestionsAsked, date: Date())
             }
-            return GameResult(correct: 0, total: 0, date: Date())
         }
         set {
             storage.set(newValue.correct, forKey: "correct")
@@ -57,16 +55,14 @@ final class StatisticService: StatisticServiceProtocol {
     }
     
     var totalAccuracy : Double{
-       
-        
         if totalQuestionsAsked == 0{
             return 0
-        } else{
+        } else {
             return Double(totalCorrectAnswers) / Double(totalQuestionsAsked) * 100
         }
     }
-    
-    func store(correct count: Int, total amount: Int) {
-        
+   func store(correct count: Int, total amount: Int) {
+       totalCorrectAnswers += count
+       totalQuestionsAsked += amount    
     }
 }

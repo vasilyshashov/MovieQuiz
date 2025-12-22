@@ -50,9 +50,12 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
     
     private func showNextQuestionOrResult() {
         if currentQuestionIndex == questionsAmount - 1 {
+            var gamesCount = statisticService?.gamesCount ?? 0
+            gamesCount += 1
             let text = correctAnswers == questionsAmount ?
             "Поздравляем, Вы ответили на 10 из 10!" :
-            "Вы ответили на \(correctAnswers) из 10, попробуйте еще раз!"
+            "Вы ответили на \(correctAnswers) из 10\nКоличество сыгранных квизов \(gamesCount)\nРекорд: \(bestGame)\nСредняя точность: \(totalAccuracy)"
+            
             let viewModel = QuizResultsViewModel(
                 title: "Этот раунд окончен!",
                 text: text,
@@ -74,7 +77,8 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
         questionFactory.delegate = self
         self.questionFactory = questionFactory
         questionFactory.requestNextQuestion()
-        }
+        statisticService = StatisticService()
+    }
     
     func didReceiveNextQuestion(question: QuizQuestion?) {
         guard let question = question else {
