@@ -14,7 +14,9 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
     private var questionFactory: QuestionFactoryProtocol?
     private var currentQuestion: QuizQuestion?
     private var alertPresenter = AlertPresenter()
-    private var statisticService: StatisticServiceProtocol?
+    private lazy var statisticService: StatisticServiceProtocol = {
+        return StatisticService()
+    }()
     
     private func convert(model: QuizQuestion) -> QuizStepViewModel {
         let questionStep = QuizStepViewModel(
@@ -49,12 +51,14 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
     }
     
     private func showNextQuestionOrResult() {
-        if currentQuestionIndex == questionsAmount - 1 {
-            var gamesCount = statisticService?.gamesCount ?? 0
-            gamesCount += 1
+        let gamesCount = statisticService.gamesCount
+        let bestGame = statisticService.bestGame
+        let totalAccuracy = statisticService.totalAccuracy
+        
+            if currentQuestionIndex == questionsAmount - 1 {
             let text = correctAnswers == questionsAmount ?
             "Поздравляем, Вы ответили на 10 из 10!" :
-            "Вы ответили на \(correctAnswers) из 10\nКоличество сыгранных квизов \(gamesCount)\nРекорд: \(bestGame)\nСредняя точность: \(totalAccuracy)"
+            "Вы ответили на \(correctAnswers) из 10\nКоличество сыгранных квизов: \(gamesCount)\nРекорд: \(bestGame)\nСредняя точность: \(totalAccuracy)%"
             
             let viewModel = QuizResultsViewModel(
                 title: "Этот раунд окончен!",
@@ -116,4 +120,5 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
         
         alertPresenter.show(in: self, model: model)
     }
+    
 }

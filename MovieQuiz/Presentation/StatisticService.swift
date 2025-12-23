@@ -11,7 +11,7 @@ import UIKit
 final class StatisticService: StatisticServiceProtocol {
     private let storage: UserDefaults = .standard
     
-    var gamesCount: Int {
+     var gamesCount: Int {
         get {
             storage.integer(forKey: "gamesCount")
         }
@@ -19,21 +19,23 @@ final class StatisticService: StatisticServiceProtocol {
             storage.set(newValue, forKey: "gamesCount")
         }
     }
-    
+ 
     var bestGame: GameResult{
         get {
-            storage.integer(forKey: "correct")
-            storage.integer(forKey: "total")
-            storage.object(forKey: "date") as! Date ?? Date()
-            if correctAnswers > correct {
-               return GameResult(correct: correctAnswers, total: totalQuestionsAsked, date: Date())
+            let correct = storage.integer(forKey: "bestGameCorrect")
+            let total = storage.integer(forKey: "bestGameTotal")
+            if let dateTimestamp = storage.object(forKey: "bestGameDate") as? TimeInterval {
+                let date = Date(timeIntervalSinceReferenceDate: dateTimestamp)
+                return GameResult(correct: correct, total: total, date: date)
+            }else{
+                return GameResult(correct: correct, total: total, date: Date())
             }
         }
-        set {
-            storage.set(newValue.correct, forKey: "correct")
-            storage.set(newValue.total, forKey: "total")
-            storage.set(newValue.date, forKey: "date")
-        }
+            set {
+                storage.set(newValue.correct, forKey: "bestGameCorrect")
+                storage.set(newValue.total, forKey: "bestGameTotal")
+                storage.set(newValue.date.timeIntervalSinceReferenceDate, forKey: "bestGameDate")
+            }
     }
     
     var totalCorrectAnswers: Int {
@@ -61,8 +63,16 @@ final class StatisticService: StatisticServiceProtocol {
             return Double(totalCorrectAnswers) / Double(totalQuestionsAsked) * 100
         }
     }
+    
    func store(correct count: Int, total amount: Int) {
+       let newResult = GameResult(correct: count, total: amount, date: Date())
+       
+       if newResult.isBetterThan(bestGame){
+           bestGame = newResult
+       }
+       
        totalCorrectAnswers += count
-       totalQuestionsAsked += amount    
+       totalQuestionsAsked += amount
+       gamesCount += 1
     }
 }
