@@ -24,17 +24,16 @@ final class StatisticService: StatisticServiceProtocol {
         get {
             let correct = storage.integer(forKey: "bestGameCorrect")
             let total = storage.integer(forKey: "bestGameTotal")
-            if let dateTimestamp = storage.object(forKey: "bestGameDate") as? TimeInterval {
-                let date = Date(timeIntervalSinceReferenceDate: dateTimestamp)
-                return GameResult(correct: correct, total: total, date: date)
+            if let dateValue = storage.object(forKey: "bestGameDate") as? Date {
+                return GameResult(correct: correct, total: total, date: dateValue)
             }else{
-                return GameResult(correct: correct, total: total, date: Date())
+               return GameResult(correct: 0, total: 0, date: Date())
             }
         }
         set {
             storage.set(newValue.correct, forKey: "bestGameCorrect")
             storage.set(newValue.total, forKey: "bestGameTotal")
-            storage.set(newValue.date.timeIntervalSinceReferenceDate, forKey: "bestGameDate")
+            storage.set(newValue.date, forKey: "bestGameDate")
         }
     }
     
@@ -74,7 +73,9 @@ final class StatisticService: StatisticServiceProtocol {
         totalCorrectAnswers += count
         totalQuestionsAsked += amount
     }
+    
     func incrementGamesCount(){
         gamesCount += 1
     }
 }
+
