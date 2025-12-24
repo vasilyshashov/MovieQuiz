@@ -9,9 +9,9 @@
 import UIKit
 
 final class StatisticService: StatisticServiceProtocol {
-    private let storage: UserDefaults = .standard
+    let storage: UserDefaults = .standard
     
-     var gamesCount: Int {
+    var gamesCount: Int {
         get {
             storage.integer(forKey: "gamesCount")
         }
@@ -19,7 +19,7 @@ final class StatisticService: StatisticServiceProtocol {
             storage.set(newValue, forKey: "gamesCount")
         }
     }
- 
+    
     var bestGame: GameResult{
         get {
             let correct = storage.integer(forKey: "bestGameCorrect")
@@ -31,11 +31,11 @@ final class StatisticService: StatisticServiceProtocol {
                 return GameResult(correct: correct, total: total, date: Date())
             }
         }
-            set {
-                storage.set(newValue.correct, forKey: "bestGameCorrect")
-                storage.set(newValue.total, forKey: "bestGameTotal")
-                storage.set(newValue.date.timeIntervalSinceReferenceDate, forKey: "bestGameDate")
-            }
+        set {
+            storage.set(newValue.correct, forKey: "bestGameCorrect")
+            storage.set(newValue.total, forKey: "bestGameTotal")
+            storage.set(newValue.date.timeIntervalSinceReferenceDate, forKey: "bestGameDate")
+        }
     }
     
     var totalCorrectAnswers: Int {
@@ -64,15 +64,17 @@ final class StatisticService: StatisticServiceProtocol {
         }
     }
     
-   func store(correct count: Int, total amount: Int) {
-       let newResult = GameResult(correct: count, total: amount, date: Date())
-       
-       if newResult.isBetterThan(bestGame){
-           bestGame = newResult
-       }
-       
-       totalCorrectAnswers += count
-       totalQuestionsAsked += amount
-       gamesCount += 1
+    func store(correct count: Int, total amount: Int) {
+        let newResult = GameResult(correct: count, total: amount, date: Date())
+        
+        if newResult.isBetterThan(bestGame){
+            bestGame = newResult
+        }
+        
+        totalCorrectAnswers += count
+        totalQuestionsAsked += amount
+    }
+    func incrementGamesCount(){
+        gamesCount += 1
     }
 }

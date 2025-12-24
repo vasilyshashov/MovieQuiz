@@ -51,15 +51,11 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
     }
     
     private func showNextQuestionOrResult() {
-        let gamesCount = statisticService.gamesCount
-        let bestGame = statisticService.bestGame
-        let totalAccuracy = statisticService.totalAccuracy
-        
-            if currentQuestionIndex == questionsAmount - 1 {
+        statisticService = StatisticService()
+        if currentQuestionIndex == questionsAmount - 1 {
             let text = correctAnswers == questionsAmount ?
             "Поздравляем, Вы ответили на 10 из 10!" :
-            "Вы ответили на \(correctAnswers) из 10\nКоличество сыгранных квизов: \(gamesCount)\nРекорд: \(bestGame)\nСредняя точность: \(totalAccuracy)%"
-            
+            "Ваш результат: \(correctAnswers) из 10\nКоличество сыгранных квизов: \(statisticService.gamesCount)\nРекорд: \(statisticService.bestGame)\nСредняя точность: \(String(format: "%.2f", statisticService.totalAccuracy))%"
             let viewModel = QuizResultsViewModel(
                 title: "Этот раунд окончен!",
                 text: text,
@@ -73,6 +69,7 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
         }
         noButtonClicked.isEnabled = true
         yesButtonClicked.isEnabled = true
+        statisticService.store(correct: correctAnswers, total: questionsAmount)
     }
     
     override func viewDidLoad() {
@@ -112,13 +109,12 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
         let message = result.text
         let model = AlertModel(title: result.title, message: message, buttonText: result.buttonText) { [weak self] in
             guard let self = self else { return }
-
+            
             self.correctAnswers = 0
             self.currentQuestionIndex = 0
             self.questionFactory?.requestNextQuestion()
         }
-        
+        statisticService.incrementGamesCount()
         alertPresenter.show(in: self, model: model)
     }
-    
 }
