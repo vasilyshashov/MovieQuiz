@@ -32,7 +32,7 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
         textLabel.text = step.question
         counterLabel.text = step.questionNumber
         imageView.layer.cornerRadius = 20
-        imageView.layer.borderWidth = 8
+        imageView.layer.borderWidth = 0
         imageView.layer.borderColor = nil
     }
     
