@@ -8,7 +8,7 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
     @IBOutlet private var noButtonClicked: UIButton!
     @IBOutlet private var yesButtonClicked: UIButton!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
-    
+
     private var currentQuestionIndex: Int = 0
     private var correctAnswers: Int = 0
     private let questionsAmount: Int = 10
