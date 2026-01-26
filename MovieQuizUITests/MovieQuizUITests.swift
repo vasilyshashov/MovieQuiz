@@ -7,7 +7,7 @@
 
 import XCTest
 
-class MovieQuizUITests: XCTestCase {
+final class MovieQuizUITests: XCTestCase {
     var app: XCUIApplication!
     
     override func setUpWithError() throws {
