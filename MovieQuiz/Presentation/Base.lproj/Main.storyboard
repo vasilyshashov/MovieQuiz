@@ -41,6 +41,7 @@
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FtY-xZ-N5m" userLabel="Index Label">
                                                 <rect key="frame" x="326" y="0.0" width="48" height="23.5"/>
                                                 <color key="backgroundColor" name="YP Black"/>
+                                                <accessibility key="accessibilityConfiguration" identifier="Index"/>
                                                 <fontDescription key="fontDescription" name="YSDisplay-Medium" family="YS Display" pointSize="20"/>
                                                 <color key="textColor" name="YP White"/>
                                                 <nil key="highlightedColor"/>
@@ -50,6 +51,7 @@
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="5Cp-ha-DsT" userLabel="Preview Image">
                                         <rect key="frame" x="0.0" y="43.5" width="374" height="561"/>
                                         <color key="backgroundColor" name="YP White"/>
+                                        <accessibility key="accessibilityConfiguration" identifier="Poster"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="5Cp-ha-DsT" secondAttribute="height" multiplier="2:3" id="OKx-dj-hSE"/>
                                         </constraints>
@@ -67,6 +69,7 @@
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lSf-qW-sgR" userLabel="No Button">
                                                 <rect key="frame" x="0.0" y="0.0" width="177" height="60"/>
                                                 <color key="backgroundColor" name="YP White"/>
+                                                <accessibility key="accessibilityConfiguration" identifier="No"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="60" id="Wvl-Di-EQG"/>
                                                 </constraints>
@@ -81,12 +84,13 @@
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                                 <connections>
-                                                    <action selector="noButtonClicked:" destination="BYZ-38-t0r" eventType="touchUpInside" id="C5Q-4i-LuE"/>
+                                                    <action selector="noButtonClicked:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Y3X-Ff-Ava"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eMy-x8-8eT" userLabel="Yes Button">
                                                 <rect key="frame" x="197" y="0.0" width="177" height="60"/>
                                                 <color key="backgroundColor" name="YP White"/>
+                                                <accessibility key="accessibilityConfiguration" identifier="Yes"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="60" id="5Ly-L7-vrh"/>
                                                 </constraints>
@@ -101,7 +105,7 @@
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                                 <connections>
-                                                    <action selector="yesButtonClicked:" destination="BYZ-38-t0r" eventType="touchUpInside" id="5Aj-lE-aiB"/>
+                                                    <action selector="yesButtonClicked:" destination="BYZ-38-t0r" eventType="touchUpInside" id="NQk-ja-aD2"/>
                                                 </connections>
                                             </button>
                                         </subviews>
@@ -128,9 +132,9 @@
                         <outlet property="activityIndicator" destination="y9l-jS-tGl" id="OBu-Pj-Ml0"/>
                         <outlet property="counterLabel" destination="FtY-xZ-N5m" id="u3A-P3-Ze0"/>
                         <outlet property="imageView" destination="5Cp-ha-DsT" id="qTT-LZ-PGP"/>
-                        <outlet property="noButtonClicked" destination="lSf-qW-sgR" id="Q9t-YE-Ydu"/>
+                        <outlet property="noButton" destination="lSf-qW-sgR" id="ECY-7v-w0c"/>
                         <outlet property="textLabel" destination="vuD-hu-DNG" id="lMc-xy-Bsd"/>
-                        <outlet property="yesButtonClicked" destination="eMy-x8-8eT" id="SQV-DZ-me6"/>
+                        <outlet property="yesButton" destination="eMy-x8-8eT" id="1t6-iY-2a3"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
